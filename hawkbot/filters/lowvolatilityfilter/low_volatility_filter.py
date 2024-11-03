@@ -67,8 +67,8 @@ class LowVolatilityFilter(Filter):
                        previous_filter_results: List[FilterResult]) -> Dict[SymbolPositionSide, Dict]:
         non_volatile_symbols = {}
 
-        logger.warning(f"initial symbols {len(starting_list)} symbols: {starting_list}")
-        logger.warning(f"Config: {self.filter_config}")
+        logger.debug(f"initial symbols {len(starting_list)} symbols: {starting_list}")
+        logger.debug(f"Config: {self.filter_config}")
         for symbol in starting_list:
             reference_candles = self.candle_store.get_last_candles(symbol=symbol,
                                                                    timeframe=self.reference_timeframe,
@@ -107,10 +107,10 @@ class LowVolatilityFilter(Filter):
 
         sort_descending = self.sort is None or self.sort == 'desc'
         sorted_symbols = sorted(non_volatile_symbols.items(), key=lambda x: x[1]['price_ratio_change'], reverse=sort_descending)
-        logger.warning(f"sorted_symbols {len(sorted_symbols)} symbols: {sorted_symbols}")
+        logger.debug(f"sorted_symbols {len(sorted_symbols)} symbols: {sorted_symbols}")
         if self.top is not None:
             sorted_symbols = sorted_symbols[:self.top]
-        logger.warning(f"non volatile symbols {len(sorted_symbols)} symbols: {list(sorted_symbols)}")
+        logger.debug(f"non volatile symbols {len(sorted_symbols)} symbols: {list(sorted_symbols)}")
 
         filtered_symbols = {}
         for symbol, data in sorted_symbols:
@@ -121,5 +121,5 @@ class LowVolatilityFilter(Filter):
                 logger.debug(f"{symbol}: Discarding symbol because it's not in starting list")
 
 
-        logger.warning(f"non volatile filterd symbols {len(filtered_symbols)} symbols: {filtered_symbols}")
+        logger.info(f"non volatile filtered symbols {len(filtered_symbols)} symbols: {filtered_symbols}")
         return filtered_symbols
