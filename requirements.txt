@@ -60,3 +60,4 @@ Werkzeug==2.2.2
 pycryptodome==3.20.0
 git+https://github.com/bmoscon/cryptofeed.git
 plotly-resampler==0.10.0
+newrelic

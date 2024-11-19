@@ -66,12 +66,12 @@ class CandleVolumeFilter(Filter):
             median_volume = median([candle.quote_volume for candle in candles])
 
             if median_volume >= self.minimum_volume:
-                logger.info(f"ADDING {symbol} to filtered symbols with because median volume of "
+                logger.debug(f"ADDING {symbol} to filtered symbols with because median volume of "
                             f"{median_volume} is equal or greater than the required minimum volume of "
                             f"{self.minimum_volume}")
                 filtered_symbols[symbol] = {}
             else:
-                logger.info(f"NOT ADDING {symbol} to filtered symbols with because median volume of "
+                logger.debug(f"NOT ADDING {symbol} to filtered symbols with because median volume of "
                             f"{median_volume} is less than the required minimum volume of {self.minimum_volume}")
 
         return filtered_symbols
